@@ -9,35 +9,33 @@ import java.util.Properties;
 
 public class CreateDBConnection {
 
-	// private static CreateDBConnection instance = null;
-	// private static Properties props;
+	private static CreateDBConnection instance; // TODO: DO NOT DECLARE NULL
+	private static Properties props;
 
 	// CREATING A PRIVATE CONSTRUCTOR
-	// private CreateDBConnection() {
-	// // PROPERTIES CLASS IS USED TO GET THE PROPERTY VALUE
-	// // BASED ON PROPERTY KEY
-	// props = new Properties();
-	// try {
-	// props.load(CreateDBConnection.class.getClassLoader().getResourceAsStream("/META-INF/db.properties"));
-	// } catch (IOException e1) {
-	// // TODO Auto-generated catch block
-	// e1.printStackTrace();
-	// }
-	// }
+	private CreateDBConnection() {
+		// PROPERTIES CLASS IS USED TO GET THE PROPERTY VALUE
+		// BASED ON PROPERTY KEY
+		props = new Properties();
+		try {
+			props.load(CreateDBConnection.class.getClassLoader().getResourceAsStream("db.properties"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 
-	// public static CreateDBConnection getInstance() {
-	// if (instance == null) {
-	// instance = new CreateDBConnection();
-	// }
-	// return instance;
-	// }
-	//
-	// public String getValue(String key) {
-	// return props.getProperty(key);
-	// }
+	public static CreateDBConnection getInstance() {
+		if (instance == null) {
+			instance = new CreateDBConnection();
+		}
+		return instance;
+	}
 
 	public static void main(String[] args) {
 		Properties props = new Properties();
+		// THIS WILL CREATE INSTANCE OF DB CONNECTION
+		CreateDBConnection cDB = CreateDBConnection.getInstance();
 
 		try {
 			props.load(CreateDBConnection.class.getClassLoader().getResourceAsStream("db.properties"));
@@ -46,9 +44,9 @@ public class CreateDBConnection {
 			e1.printStackTrace();
 		}
 
-		String url = props.getProperty("jdbc.url");
-		String username = props.getProperty("jdbc.username");
-		String password = props.getProperty("jdbc.password");
+		String url = cDB.props.getProperty("jdbc.url");
+		String username = cDB.props.getProperty("jdbc.username");
+		String password = cDB.props.getProperty("jdbc.password");
 
 		try {
 
